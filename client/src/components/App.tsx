@@ -1,44 +1,52 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { getPersons, PersonInterface } from "../services/person";
+import HirePersonForm from "./HirePersonForm";
 import PersonList from "./PersonList";
 
 const App: FunctionComponent = () => {
-
   const [persons, setPersons] = useState<PersonInterface[]>([]);
   const [counter, setCounter] = useState(0);
 
+  const firePerson = (id: string) => {
+    setPersons((persons) => persons.filter((p) => p.id !== id));
+  };
+
+  const hirePerson = (person: PersonInterface) => {
+    setPersons((persons) => persons.concat(person).reverse());
+  };
+
   useEffect(() => {
-    console.log("Joka ikinen kerta!");
+    console.log("Joka ikinen kerta");
   });
 
   useEffect(() => {
-    console.log("Joka kerta kun persons muuttuu!");
+    console.log("Joka kerta kun personit muuttuu, ja saapuu oikea yö.");
   }, [persons]);
 
   useEffect(() => {
-    console.log("Vain kerran, kun komponentti on rendattu ekan kerran!");
-
     getPersons().then(setPersons);
 
+    console.log("Vain kerran, kun komponentti on rendattu ekan kerran");
   }, []);
 
   useEffect(() => {
-    const tussi = setInterval( () => {
+    const tussi = setInterval(() => {
       setCounter((counter) => counter + 1);
     }, 1000);
-
     return () => {
       clearInterval(tussi);
-    }
+    };
   }, []);
 
   return (
     <main>
       <h1>Mega ERP</h1>
 
-      <p>Renderiä rendattu {counter} kertaa.</p>
+      <p>Renderiä rendailtu {counter} kertaa.</p>
 
-      <PersonList persons={persons} />
+      <HirePersonForm hirePerson={hirePerson} />
+
+      <PersonList firePerson={firePerson} persons={persons} />
     </main>
   );
 };
