@@ -2,25 +2,10 @@
 
 import { FC } from "react";
 import { PersonInterface } from "../services/person";
-import { motion } from "framer-motion";
 
 type Props = {
   person: PersonInterface;
   firePerson: (id: string) => void;
-};
-
-const variants = {
-  hidden: {
-    opacity: 0,
-    x: -500
-  },
-  visible: {
-    opacity: 1,
-    x: 1,
-    transition: {
-      duration: 0.25
-    }
-  }
 };
 
 const Person: FC<Props> = ({ person, firePerson }) => {
