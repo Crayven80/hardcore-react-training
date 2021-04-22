@@ -1,5 +1,5 @@
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { PersonInterface } from "../services/person";
 import Person from "./Person";
 
@@ -59,7 +59,10 @@ const PersonList: FC<Props> = ({ persons, firePerson }) => {
                     left: 0
                   }}
                   onDragEnd={(p1, p2) => {
-                    if (p2.offset.x > 100) {
+                    if (
+                      (!person.isBeingFired && p2.offset.x > 500) ||
+                      p2.velocity.x > 200
+                    ) {
                       firePerson(person.id);
                     }
                   }}
@@ -79,4 +82,4 @@ const PersonList: FC<Props> = ({ persons, firePerson }) => {
   );
 };
 
-export default PersonList;
+export default memo(PersonList);

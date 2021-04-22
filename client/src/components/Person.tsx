@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { FC } from "react";
+import { FC, memo } from "react";
 import { PersonInterface } from "../services/person";
+import { Link } from "react-router-dom";
 
 type Props = {
   person: PersonInterface;
@@ -27,10 +28,13 @@ const Person: FC<Props> = ({ person, firePerson }) => {
       ]}
     >
       <div>
-        <strong>{person.lastName}</strong>, {person.firstName}, {person.age}
+        <Link to={`/person/${person.id}`}>
+          <strong>{person.lastName}</strong>, {person.firstName}, {person.age}
+        </Link>
       </div>
       <div>
         <button
+          disabled={person.isBeingFired}
           onClick={() => {
             firePerson(person.id);
           }}
@@ -42,4 +46,4 @@ const Person: FC<Props> = ({ person, firePerson }) => {
   );
 };
 
-export default Person;
+export default memo(Person);
