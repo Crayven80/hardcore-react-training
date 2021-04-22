@@ -17,16 +17,14 @@ const variants = {
     opacity: 1,
     x: 0,
     transition: {
-      staggerChildren: 0.05
+      staggerChildren: 0.25
     }
   },
   exit: {
-    x: 0,
-    scale: 10,
-    rotate: 1000,
+    x: 500,
     opacity: 0,
     transition: {
-      duration: 1
+      duration: 0.5
     }
   }
 };
